@@ -4,7 +4,12 @@
   "description": "\"# deskTopAppCJSEA\"",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron ."
+  },
+  "keywords": [],
+  "dependencies": {
+    "electron": "^13.2.3",
+    "sqlite3": "^5.0.2"
   },
   "repository": {
     "type": "git",
