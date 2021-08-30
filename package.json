@@ -1,0 +1,19 @@
+{
+  "name": "desktopappcjsea",
+  "version": "1.0.0",
+  "description": "\"# deskTopAppCJSEA\"",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iskanderAB/deskTopAppCJSEA.git"
+  },
+  "author": "saméh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iskanderAB/deskTopAppCJSEA/issues"
+  },
+  "homepage": "https://github.com/iskanderAB/deskTopAppCJSEA#readme"
+}
