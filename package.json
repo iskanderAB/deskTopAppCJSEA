@@ -11,14 +11,11 @@
     "electron": "^13.2.3",
     "sqlite3": "^5.0.2"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/iskanderAB/deskTopAppCJSEA.git"
-  },
-  "author": "saméh",
+  "author": "brahim",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/iskanderAB/deskTopAppCJSEA/issues"
-  },
-  "homepage": "https://github.com/iskanderAB/deskTopAppCJSEA#readme"
+  "devDependencies": {
+    "autoprefixer": "^10.3.4",
+    "postcss": "^8.3.6",
+    "tailwindcss": "^2.2.14"
+  }
 }
