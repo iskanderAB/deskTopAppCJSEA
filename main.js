@@ -4,7 +4,7 @@ function boot() {
   win = new BrowserWindow({
     width: 1350,
     height: 900,
-    resizable:false
+    resizable:true
   });
   win.loadURL(`file://${__dirname}/home.html`);
   win.on("closed", () => {
