@@ -2,10 +2,11 @@ const { app, BrowserWindow } = require("electron");
 
 function boot() {
   win = new BrowserWindow({
-    width: 900,
-    height: 800,
+    width: 1350,
+    height: 900,
+    resizable:true
   });
-  win.loadURL(`file://${__dirname}/main.html`);
+  win.loadURL(`file://${__dirname}/home.html`);
   win.on("closed", () => {
     win = "null";
   });
