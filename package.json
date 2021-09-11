@@ -8,7 +8,7 @@
   },
   "keywords": [],
   "dependencies": {
-    "electron": "^13.2.3",
+    "electron": "^13.3.0",
     "sqlite3": "^5.0.2"
   },
   "author": "brahim",
