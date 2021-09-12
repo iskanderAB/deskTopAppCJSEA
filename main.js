@@ -4,7 +4,8 @@ function boot() {
   win = new BrowserWindow({
     width: 1350,
     height: 900,
-    resizable:true
+    resizable:false,
+    backgroundColor: "#eeebf0",
   });
   win.loadURL(`file://${__dirname}/home.html`);
   win.on("closed", () => {
