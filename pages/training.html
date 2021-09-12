@@ -9,7 +9,6 @@
   </head>
   <body>
     <div class="container mx-auto">
-
       <!-- header mta3 l page -->
       <div class="flex justify-around h-20 mt-8">
         <div class="flex space-x-32 text-xl font-extrabold text-gray-600">
@@ -155,7 +154,6 @@
             ADD
           </div>
           <form class="mt-4 text-black">
-
             <!-- input name -->
             <div class="font-medium text-base">NAME</div>
             <input
@@ -178,32 +176,91 @@
               placeholder="Name of training"
             />
             <!-- date input -->
-            <div class="font-medium text-base mt-3">DATE</div>
-            <input
-              type="search"
-              class="
-                bg-purple-white
-                shadow
-                rounded
-                border-2
-                py-2
-                px-3
-                border-gray-400
-                mt-1
-                w-64
-                focus:outline-none
-                focus:ring-2
-                focus:ring-purple-600
-                focus:border-transparent
-              "
-              placeholder="Date"
-            />
+
+            <div class="w-64">
+              <div
+                x-data
+                x-init="flatpickr($refs.datetimewidget, {wrap: true, enableTime: true, dateFormat: 'M j, Y h:i K'});"
+                x-ref="datetimewidget"
+                class="
+                  flatpickr
+                  container
+                  mx-auto
+                  col-span-6
+                  sm:col-span-6
+                  mt-5
+                "
+              >
+                <label
+                  for="datetime"
+                  class="flex-grow block font-medium text-black mb-1 text-base"
+                  >Date and Time</label
+                >
+                <div class="flex align-middle align-content-center">
+                  <input
+                    x-ref="datetime"
+                    type="text"
+                    id="datetime"
+                    data-input
+                    placeholder="Select.."
+                    class="
+                      block
+                      w-full
+                      px-2
+                      border-gray-300
+                      focus:border-indigo-300
+                      focus:ring
+                      focus:ring-indigo-200
+                      focus:ring-opacity-50
+                      rounded-l-md
+                      shadow-sm
+                    "
+                  />
+
+                  <a
+                    class="
+                      h-11
+                      w-10
+                      input-button
+                      cursor-pointer
+                      rounded-r-md
+                      bg-transparent
+                      border-gray-300 border-t border-b border-r
+                    "
+                    title="clear"
+                    data-clear
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-7 w-7 mt-2 ml-1"
+                      viewBox="0 0 20 20"
+                      fill="#c53030"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.js"></script>
+              <link
+                rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/themes/airbnb.min.css"
+              />
+              <script
+                src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js"
+                defer
+              ></script>
+            </div>
 
             <!-- select options -->
             <div class="font-medium text-base mt-3">Trainers</div>
             <div>
               <select
-                
                 class="
                   bg-purple-white
                   shadow
@@ -220,10 +277,10 @@
                   focus:border-transparent
                 "
               >
-                <option selected disabled hidden >select trainer name</option>
-                <option  >brahim tuijine</option>
-                <option >bilel merseni</option>
-                <option >skander Abbassi</option>
+                <option selected disabled hidden>Select Trainer Name</option>
+                <option>brahim tuijine</option>
+                <option>bilel merseni</option>
+                <option>skander Abbassi</option>
               </select>
             </div>
           </form>
