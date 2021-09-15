@@ -1,18 +1,16 @@
 const electron = require("electron");
 
-      const { ipcRenderer } = electron;
+const { ipcRenderer } = electron;
 
-      // add to members table
+// select members from database
 
-      document.addEventListener("DOMContentLoaded", () => {
-        ipcRenderer.send("LoadMembersList");
-        ipcRenderer.on("MembersListLoaded", (evnt, result) => {
-          console.log(result);
+document.addEventListener("DOMContentLoaded", () => {
+  ipcRenderer.send("LoadMembersList");
+  ipcRenderer.on("MembersListLoaded", (evnt, result) => {
+    const tablecontent = document.querySelector("#tableContent");
 
-          const tablecontent = document.querySelector("#tableContent");
-
-          result.map((s) => {
-            tablecontent.innerHTML += `<tr class="border-b border-gray-200 bg-white">
+    result.map((s) => {
+      tablecontent.innerHTML += `<tr class="border-b border-gray-200 bg-white">
                     <td class="py-3 px-6 text-left whitespace-nowrap">
                       <div class="items-center">
                         <span class="">${s.id}</span>
@@ -87,6 +85,27 @@ const electron = require("electron");
                       </div>
                     </td>
                   </tr>`;
-          });
-        });
-      });
+    });
+  });
+});
+
+ajoutBtn = document.querySelector("#memberAjoutBtn");
+
+ajoutBtn.addEventListener("click", () => {
+  Name = document.querySelector("#membersName").value;
+  lastName = document.querySelector("#membersLastName").value;
+  email = document.querySelector("#membersEmail").value;
+  membersPhone = document.querySelector("#membersPhone").value;
+
+
+  if (Name.toString() == "") {
+    ipcRenderer.send("showError" , "Name can not be null");
+  } else if (lastName.toString() == "") {
+    ipcRenderer.send("showError" , "Last name can not be null");
+  } else {
+    // add to databasee
+  }
+
+  
+
+});
