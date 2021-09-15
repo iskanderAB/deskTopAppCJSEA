@@ -12,8 +12,8 @@ function boot() {
       enableRemoteModule: true,
     },
   });
-  win.webContents.openDevTools();
-  win.loadURL(`file://${__dirname}/home.html`);
+  // win.webContents.openDevTools();
+  win.loadURL(`file://${__dirname}/pages/home.html`);
   win.on("closed", () => {
     win = "null";
   });
