@@ -9,6 +9,7 @@
   "keywords": [],
   "dependencies": {
     "electron": "^13.3.0",
+    "knex": "^0.95.11",
     "sqlite3": "^5.0.2"
   },
   "author": "brahim",
