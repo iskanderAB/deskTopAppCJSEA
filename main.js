@@ -49,12 +49,19 @@ ipcMain.on("AjoutTrainerList" , (event,arg) => {
 
 });
 
-ipcMain.on("LoadMembersList", (event) => {
-  let result = knex.select().from("members");
-  result.then((row) => {
-    event.sender.send("MembersListLoaded", row);
-  });
+
+
+// Add training list to database 
+
+ipcMain.on("AjoutTrainingList" , (event,args) => {
+   
+  var ajout =knex('training').insert({name:args[0],date:args[1]})
+    .then(function (new_training) {
+      event.sender.send("TrainingListAdd") 
+    }); 
+
 });
+
 
 // show error
 

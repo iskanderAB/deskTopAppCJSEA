@@ -146,11 +146,12 @@
           <div class="font-bold uppercase text-center text-3xl text-gray-600">
             ADD
           </div>
-          <form class="mt-4 text-black">
+          <form class="mt-4 text-black" id="form">
             <!-- input name -->
-            <div class="font-medium text-base">NAME</div>
+            <div class="font-medium text-base" >NAME</div>
             <input
               type="search"
+              id="name"
               class="
                 bg-purple-white
                 shadow
@@ -191,6 +192,7 @@
                 >
                 <div class="flex align-middle align-content-center">
                   <input
+                  id="date"
                     x-ref="datetime"
                     type="text"
                     id="datetime"
@@ -309,26 +311,28 @@
                 <option>skander Abbassi</option>
               </select>
             </div>
+            <!-- add button -->
+          <button
+          id="btn-add"
+          class="
+            transform
+            hover:scale-105
+            shadow-lg
+            bg-gray-300
+            h-8
+            w-48
+            mt-6
+            text-center
+            ml-8
+            font-medium
+            rounded-lg
+          "
+        >
+          ADD
+        </button> 
           </form>
 
-          <!-- add button -->
-          <button
-            class="
-              transform
-              hover:scale-105
-              shadow-lg
-              bg-gray-300
-              h-8
-              w-48
-              mt-6
-              text-center
-              ml-8
-              font-medium
-              rounded-lg
-            "
-          >
-            ADD
-          </button>
+          
         </div>
       </div>
     </div>
