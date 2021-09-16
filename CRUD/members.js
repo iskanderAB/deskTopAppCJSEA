@@ -89,23 +89,31 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-ajoutBtn = document.querySelector("#memberAjoutBtn");
+// get input value and send it do IPCmain
 
+ajoutBtn = document.querySelector("#memberAjoutBtn");
 ajoutBtn.addEventListener("click", () => {
-  Name = document.querySelector("#membersName").value;
-  lastName = document.querySelector("#membersLastName").value;
-  email = document.querySelector("#membersEmail").value;
-  membersPhone = document.querySelector("#membersPhone").value;
-  console.log(Name + lastName + email + membersPhone);
+  let Name = document.querySelector("#membersName").value;
+  let lastName = document.querySelector("#membersLastName").value;
+  let email = document.querySelector("#membersEmail").value;
+  let membersPhone = document.querySelector("#membersPhone").value;
 
   if (Name.toString() == "") {
     ipcRenderer.send("showError", "Name can not be null");
   } else if (lastName.toString() == "") {
     ipcRenderer.send("showError", "Last name can not be null");
+  } else if (membersPhone.toString() != "") {
+    console.log(membersPhone);
+    console.log("number not null");
+    if (membersPhone.toString().length != 8 || isNaN(membersPhone)) {
+      ipcRenderer.send("showError", "Phone can only be a number and lenght 8");
+    }
   } else {
     ipcRenderer.send("addToDataB", [Name, lastName, email, membersPhone]);
   }
 });
+
+// reload where insert into DB done
 
 ipcRenderer.on("insertDone", () => {
   location.reload();
