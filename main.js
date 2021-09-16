@@ -30,6 +30,25 @@ const knex = require("knex")({
 
 // get members list from database
 
+ipcMain.on("LoadMembersList" , (event)=>{
+  let result = knex.select().from("members")
+  result.then((row)=>{
+    event.sender.send("MembersListLoaded" , row)
+  })
+})
+
+// ajout trainer list to database 
+
+ipcMain.on("AjoutTrainerList" , (event,arg) => {
+   
+  
+  let ajout =knex('trainers').insert({name:name_trainer,lastname:lastname_trainer,email:email,phone:phone})
+    .then(function (new_trainer) {
+      event.sender.send("TrainerListAdd") 
+  });
+
+});
+
 ipcMain.on("LoadMembersList", (event) => {
   let result = knex.select().from("members");
   result.then((row) => {
