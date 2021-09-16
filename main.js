@@ -30,29 +30,44 @@ const knex = require("knex")({
 
 // get members list from database
 
-ipcMain.on("LoadMembersList" , (event)=>{
-  let result = knex.select().from("members")
-  result.then((row)=>{
-    event.sender.send("MembersListLoaded" , row)
-  })
-})
-
-// ajout trainer list to database 
-
-ipcMain.on("AjoutTrainerList" , (event,args) => {
-   var ajout =knex('trainers').insert({name:args[0],lastname:args[1],email:args[2],phone:args[3]})
-    .then(function (new_trainer) {
-      event.sender.send("TrainerListAdd") 
+ipcMain.on("LoadMembersList", (event) => {
+  let result = knex.select().from("members");
+  result.then((row) => {
+    event.sender.send("MembersListLoaded", row);
   });
-
 });
 
+// ajout trainer list to database
+
+ipcMain.on("AjoutTrainerList", (event, args) => {
+  var ajout = knex("trainers")
+    .insert({
+      name: args[0],
+      lastname: args[1],
+      email: args[2],
+      phone: args[3],
+    })
+    .then(function (new_trainer) {
+      event.sender.send("TrainerListAdd");
+    });
+});
 
 // show error
 
-ipcMain.on("showError", (event, msg ) => {
-  dialog.showErrorBox( "Error", msg);  
+ipcMain.on("showError", (event, msg) => {
+  dialog.showErrorBox("Error", msg);
 });
 
-
-// ipcMain.on("addToDataB" , )
+// insert members into DB
+ipcMain.on("addToDataB", (event, args) => {
+  knex("members")
+    .insert({
+      name: args[0],
+      lastname: args[1],
+      email: args[2],
+      phone: args[3],
+    })
+    .then(() => {
+      event.sender.send("insertDone");
+    });
+});

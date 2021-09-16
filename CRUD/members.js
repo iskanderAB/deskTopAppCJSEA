@@ -96,16 +96,17 @@ ajoutBtn.addEventListener("click", () => {
   lastName = document.querySelector("#membersLastName").value;
   email = document.querySelector("#membersEmail").value;
   membersPhone = document.querySelector("#membersPhone").value;
-
+  console.log(Name + lastName + email + membersPhone);
 
   if (Name.toString() == "") {
-    ipcRenderer.send("showError" , "Name can not be null" );
+    ipcRenderer.send("showError", "Name can not be null");
   } else if (lastName.toString() == "") {
-    ipcRenderer.send("showError" , "Last name can not be null");
+    ipcRenderer.send("showError", "Last name can not be null");
   } else {
-    ipcRenderer.send("addToDataB" , Name , lastName , email , membersPhone)
+    ipcRenderer.send("addToDataB", [Name, lastName, email, membersPhone]);
   }
+});
 
-  
-
+ipcRenderer.on("insertDone", () => {
+  location.reload();
 });
