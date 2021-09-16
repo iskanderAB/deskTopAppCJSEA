@@ -103,8 +103,6 @@ ajoutBtn.addEventListener("click", () => {
   } else if (lastName.toString() == "") {
     ipcRenderer.send("showError", "Last name can not be null");
   } else if (membersPhone.toString() != "") {
-    console.log(membersPhone);
-    console.log("number not null");
     if (membersPhone.toString().length != 8 || isNaN(membersPhone)) {
       ipcRenderer.send("showError", "Phone can only be a number and lenght 8");
     }
