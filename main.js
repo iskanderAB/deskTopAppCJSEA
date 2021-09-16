@@ -39,6 +39,9 @@ ipcMain.on("LoadMembersList", (event) => {
 
 // show error
 
-ipcMain.on("showError", (event, msg) => {
-  dialog.showErrorBox("Error", msg);  
+ipcMain.on("showError", (event, msg ) => {
+  dialog.showErrorBox( "Error", msg);  
 });
+
+
+ipcMain.on("addToDataB" , )

@@ -99,11 +99,11 @@ ajoutBtn.addEventListener("click", () => {
 
 
   if (Name.toString() == "") {
-    ipcRenderer.send("showError" , "Name can not be null");
+    ipcRenderer.send("showError" , "Name can not be null" );
   } else if (lastName.toString() == "") {
     ipcRenderer.send("showError" , "Last name can not be null");
   } else {
-    // add to databasee
+    ipcRenderer.send("addToDataB" , Name , lastName , email , membersPhone)
   }
 
   
