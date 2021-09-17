@@ -102,7 +102,7 @@ ajoutBtn.addEventListener("click", () => {
     ipcRenderer.send("showError", "Name can not be null");
   } else if (lastName.toString() == "") {
     ipcRenderer.send("showError", "Last name can not be null");
-  } else if (membersPhone.toString() != "") {
+  } else if (membersPhone.toString().length != 0) {
     if (membersPhone.toString().length != 8 || isNaN(membersPhone)) {
       ipcRenderer.send("showError", "Phone can only be a number and lenght 8");
     }
