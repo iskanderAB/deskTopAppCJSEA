@@ -68,6 +68,30 @@ ipcMain.on("addToDataB", (event, args) => {
       phone: args[3],
     })
     .then(() => {
+      // showMessageBoxSync 5ater lazem yestanna yetna7a l box bech yet3adda lalli ba3dou so ta5ou wa9t 
+
+      dialog.showMessageBoxSync({...options , "detail" : "member added succesfully"} )
       event.sender.send("insertDone");
+    });
+});
+
+// message box option
+
+const options = {
+  type: "info",
+  message: "Message",
+  button: "OK",
+  detail: "member has been delete",
+};
+
+// delete members from database
+
+ipcMain.on("deleteMember", (event, id) => {
+  knex("members")
+    .where("id", id)
+    .del()
+    .then(() => {
+      dialog.showMessageBoxSync(options);
+      event.sender.send("membersDel");
     });
 });

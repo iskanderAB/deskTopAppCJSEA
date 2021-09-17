@@ -1,4 +1,6 @@
+const { dialog } = require("electron");
 const electron = require("electron");
+const { default: knex } = require("knex");
 
 const { ipcRenderer } = electron;
 
@@ -63,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             </svg>
                           </div>
                         </button>
-                        <button>
+                        <button id=${s.id} onclick="deleteMember(${s.id})">
                           <div
                             class="w-4 mr-2 transform text-red-500 hover:scale-110"
                           >
@@ -114,5 +116,16 @@ ajoutBtn.addEventListener("click", () => {
 // reload where insert into DB done
 
 ipcRenderer.on("insertDone", () => {
+  location.reload();
+});
+
+// delete members
+function deleteMember(p) {
+  ipcRenderer.send("deleteMember", p);
+}
+
+// show message
+
+ipcRenderer.on("membersDel", () => {
   location.reload();
 });
