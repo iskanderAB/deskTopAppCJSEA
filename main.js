@@ -71,7 +71,7 @@ ipcMain.on("addToDataB", (event, args) => {
       // showMessageBoxSync 5ater lazem yestanna yetna7a l box bech yet3adda lalli ba3dou so ta5ou wa9t 
 
       dialog.showMessageBoxSync({...options , "detail" : "member added succesfully"} )
-      event.sender.send("insertDone");
+      event.sender.send("reload");
     });
 });
 
@@ -92,6 +92,6 @@ ipcMain.on("deleteMember", (event, id) => {
     .del()
     .then(() => {
       dialog.showMessageBoxSync(options);
-      event.sender.send("membersDel");
+      event.sender.send("reload");
     });
 });

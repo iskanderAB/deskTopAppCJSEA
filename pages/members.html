@@ -71,8 +71,7 @@
                 <th class="py-3 px-6 text-center">Actions</th>
               </tr>
             </thead>
-            <tbody class="text-md font-normal" id="tableContent">
-            </tbody>
+            <tbody class="text-md font-normal" id="tableContent"></tbody>
           </table>
         </div>
 
@@ -189,8 +188,142 @@
       </div>
     </div>
 
-    <script src="../CRUD/members.js">
-      
-    </script>
+    <div
+      class="
+        hidden
+        modal
+        h-screen
+        w-full
+        fixed
+        left-0
+        top-0
+        flex
+        justify-center
+        items-center
+        bg-black bg-opacity-50
+      "
+    >
+      <!-- modal -->
+      <div class="bg-white rounded shadow-lg w-10/12 md:w-1/2">
+        <!-- modal header -->
+        <div class="border-b px-4 py-2 flex justify-between items-center">
+          <h3 class="font-semibold text-lg">Modal Title</h3>
+          <button class="text-black " onclick="closeModel()">&cross;</button>
+        </div>
+        <!-- modal body -->
+        <div class="p-3">
+          <form class="text-black grid grid-cols-2 gap-4">
+            <div class="font-medium text-base">NAME</div>
+            <input
+              id="membersName"
+              type="search"
+              class="
+                bg-purple-white
+                shadow
+                rounded
+                border-2
+                py-2
+                px-3
+                border-gray-400
+                mt-1
+                w-64
+                focus:outline-none
+                focus:ring-2
+                focus:ring-purple-600
+                focus:border-transparent
+              "
+              placeholder="First name"
+            />
+            <div class="font-medium text-base mt-3">LAST NAME</div>
+            <input
+              id="membersLastName"
+              type="search"
+              class="
+                bg-purple-white
+                shadow
+                rounded
+                border-2
+                py-2
+                px-3
+                border-gray-400
+                mt-1
+                w-64
+                focus:outline-none
+                focus:ring-2
+                focus:ring-purple-600
+                focus:border-transparent
+              "
+              placeholder="Family name"
+            />
+            <div class="font-medium text-base mt-3">E-MAIL</div>
+            <input
+              id="membersEmail"
+              type="search"
+              class="
+                bg-purple-white
+                shadow
+                rounded
+                border-2
+                py-2
+                px-3
+                border-gray-400
+                mt-1
+                w-64
+                focus:outline-none
+                focus:ring-2
+                focus:ring-purple-600
+                focus:border-transparent
+              "
+              placeholder="exemple@exemple.com"
+            />
+            <div class="font-medium text-base mt-3">PHONE</div>
+            <input
+              id="membersPhone"
+              type="search"
+              class="
+                bg-purple-white
+                shadow
+                rounded
+                border-2
+                py-2
+                px-3
+                border-gray-400
+                mt-1
+                w-64
+                focus:outline-none
+                focus:ring-2
+                focus:ring-purple-600
+                focus:border-transparent
+              "
+              placeholder="Exemple: 25 252 525"
+            />
+          </form>
+        </div>
+        <div class="flex justify-end items-center w-100 border-t p-3">
+          <button
+            onclick="closeModel()"
+            class="
+              bg-red-600
+              hover:bg-red-700
+              px-3
+              py-1
+              rounded
+              text-white
+              mr-1
+              close-modal
+            "
+          >
+            Cancel
+          </button>
+          <button
+            class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-white"
+          >
+            Update Member
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="../CRUD/members.js"></script>
   </body>
 </html>

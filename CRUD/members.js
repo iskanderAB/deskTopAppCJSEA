@@ -1,6 +1,4 @@
-const { dialog } = require("electron");
 const electron = require("electron");
-const { default: knex } = require("knex");
 
 const { ipcRenderer } = electron;
 
@@ -40,7 +38,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     <td class="py-3 px-6 text-center">
                       <div class="flex item-center justify-center">
 
-                        <button>
+                        <button onclick="showModel(${s.id})">
+                          
                           <div
                             class="
                               w-4
@@ -95,10 +94,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 ajoutBtn = document.querySelector("#memberAjoutBtn");
 ajoutBtn.addEventListener("click", () => {
-  let Name = document.querySelector("#membersName").value;
-  let lastName = document.querySelector("#membersLastName").value;
-  let email = document.querySelector("#membersEmail").value;
-  let membersPhone = document.querySelector("#membersPhone").value;
+  const Name = document.querySelector("#membersName").value;
+  const lastName = document.querySelector("#membersLastName").value;
+  const email = document.querySelector("#membersEmail").value;
+  const membersPhone = document.querySelector("#membersPhone").value;
 
   if (Name.toString() == "") {
     ipcRenderer.send("showError", "Name can not be null");
@@ -113,9 +112,9 @@ ajoutBtn.addEventListener("click", () => {
   }
 });
 
-// reload where insert into DB done
+// reload page
 
-ipcRenderer.on("insertDone", () => {
+ipcRenderer.on("reload", () => {
   location.reload();
 });
 
@@ -124,8 +123,14 @@ function deleteMember(p) {
   ipcRenderer.send("deleteMember", p);
 }
 
-// show message
+// show model from stilou button
 
-ipcRenderer.on("membersDel", () => {
-  location.reload();
-});
+function showModel(id) {
+  const modal = document.querySelector(".modal");
+  modal.classList.remove("hidden");
+}
+
+function closeModel() {
+  const modal = document.querySelector(".modal");
+  modal.classList.add("hidden");
+}
