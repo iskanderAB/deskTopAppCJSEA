@@ -167,44 +167,18 @@ function closeModel() {
 }
 
 // searchMember
-
 function searchMember() {
   let wordToSearch = document.querySelector("#searchMember").value;
   let upperWord = wordToSearch.toUpperCase();
-  let tr = document.getElementById("myTr");
-  let td = tr.getElementsByTagName("td");
-
-
   let tbody = document.getElementById("tableContent");
   let newtr = tbody.getElementsByTagName("tr");
 
-  console.log(newtr[1])
-  
-  // for (let i = 0; i < newtr.length; i++) {
-  //   console.log(newtr[i].getElementsByTagName("div")[1].textContent)
-  //   console.log(upperWord)
-  //   if (newtr[i].getElementsByTagName("div")[1].textContent.toUpperCase().includes(upperWord) = false ) {
-  //     newtr[i].classList.add("hidden")
-  //   }
-
-  // }
-
-
-
-
-  // console.log(td)
-  // console.log(td[1].getElementsByTagName("div")[0].textContent)
-  // console.log(td[1].getElementsByTagName("div"))
-
-  // for (let i = 0; i < td.length; i++) {
-  //   div = td[i].getElementsByTagName("div")[0]    
-  //   textValue = div.textValue || div.innerText
-
-  //   if (textValue.toUpperCase().indexOf(upperWord) > -1) {
-  //     // td[i].classList.
-  //   }else{
-  //     td[i].classList.add("hidden")
-
-  //   }
-  // }
+  for (let i = 0; i < newtr.length; i++) {
+    let toSearch = newtr[i].getElementsByTagName("div")[1].textContent;
+    if (toSearch.toUpperCase().includes(upperWord) == false) {
+      newtr[i].classList.add("hidden");
+    } else {
+      newtr[i].classList.remove("hidden");
+    }
+  }
 }

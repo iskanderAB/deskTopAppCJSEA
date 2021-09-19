@@ -12,7 +12,7 @@ function boot() {
       enableRemoteModule: true,
     },
   });
-  // win.webContents.openDevTools();
+  win.webContents.openDevTools();
   win.loadURL(`file://${__dirname}/pages/home.html`);
   win.on("closed", () => {
     win = "null";
