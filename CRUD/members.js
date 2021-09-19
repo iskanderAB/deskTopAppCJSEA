@@ -10,30 +10,30 @@ document.addEventListener("DOMContentLoaded", () => {
     const tablecontent = document.querySelector("#tableContent");
 
     result.map((s) => {
-      tablecontent.innerHTML += `<tr class="border-b border-gray-200 bg-white">
+      tablecontent.innerHTML += `<tr id="myTr" class="border-b border-gray-200 bg-white">
                     <td class="py-3 px-6 text-left whitespace-nowrap">
                       <div class="items-center">
-                        <span class="">${s.id}</span>
+                        ${s.id}
                       </div>
                     </td>
 
                     <td class="py-3 px-6 text-left whitespace-nowrap">
                       <div class="items-center">
-                        <span class="">${s.name}</span>
+                        ${s.name}
                       </div>
                     </td>
                     <td class="py-3 px-6 text-left">
                       <div class="items-center">
-                        <span>${s.lastname}</span>
+                        ${s.lastname}
                       </div>
                     </td>
                     <td class="py-3 px-6 text-center">
                       <div class="flex items-center justify-center">
-                      ${s.email}
+                            ${s.email}
                       </div>
                     </td>
                     <td class="py-3 px-6 text-center">
-                      <span class="py-1 px-3">${s.phone}</span>
+                            ${s.phone}
                     </td>
                     <td class="py-3 px-6 text-center">
                       <div class="flex item-center justify-center">
@@ -106,6 +106,8 @@ ajoutBtn.addEventListener("click", () => {
   } else if (membersPhone.toString().length != 0) {
     if (membersPhone.toString().length != 8 || isNaN(membersPhone)) {
       ipcRenderer.send("showError", "Phone can only be a number and lenght 8");
+    } else {
+      ipcRenderer.send("addToDataB", [Name, lastName, email, membersPhone]);
     }
   } else {
     ipcRenderer.send("addToDataB", [Name, lastName, email, membersPhone]);
@@ -128,9 +130,81 @@ function deleteMember(p) {
 function showModel(id) {
   const modal = document.querySelector(".modal");
   modal.classList.remove("hidden");
+  ipcRenderer.send("getModelInput", id);
+  ipcRenderer.on("inputModelLoaded", (event, result) => {
+    console.log(result);
+    document.querySelector("#modalInputName").value = result[0].name;
+    document.querySelector("#modalInputLastName").value = result[0].lastname;
+    document.querySelector("#modalInputEmail").value = result[0].email;
+    document.querySelector("#modalInputPhone").value = result[0].phone;
+  });
+
+  const updateMemberBtn = document.querySelector("#updateMember");
+
+  updateMemberBtn.addEventListener("click", () => {
+    const modalInputName = document.querySelector("#modalInputName").value;
+    const modalInputLastName = document.querySelector(
+      "#modalInputLastName"
+    ).value;
+    const modalInputEmail = document.querySelector("#modalInputEmail").value;
+    const modalInputPhone = document.querySelector("#modalInputPhone").value;
+
+    ipcRenderer.send("updateMember", [
+      id,
+      modalInputName,
+      modalInputLastName,
+      modalInputEmail,
+      modalInputPhone,
+    ]);
+  });
 }
+
+// close modal
 
 function closeModel() {
   const modal = document.querySelector(".modal");
   modal.classList.add("hidden");
+}
+
+// searchMember
+
+function searchMember() {
+  let wordToSearch = document.querySelector("#searchMember").value;
+  let upperWord = wordToSearch.toUpperCase();
+  let tr = document.getElementById("myTr");
+  let td = tr.getElementsByTagName("td");
+
+
+  let tbody = document.getElementById("tableContent");
+  let newtr = tbody.getElementsByTagName("tr");
+
+  console.log(newtr[1])
+  
+  // for (let i = 0; i < newtr.length; i++) {
+  //   console.log(newtr[i].getElementsByTagName("div")[1].textContent)
+  //   console.log(upperWord)
+  //   if (newtr[i].getElementsByTagName("div")[1].textContent.toUpperCase().includes(upperWord) = false ) {
+  //     newtr[i].classList.add("hidden")
+  //   }
+
+  // }
+
+
+
+
+  // console.log(td)
+  // console.log(td[1].getElementsByTagName("div")[0].textContent)
+  // console.log(td[1].getElementsByTagName("div"))
+
+  // for (let i = 0; i < td.length; i++) {
+  //   div = td[i].getElementsByTagName("div")[0]    
+  //   textValue = div.textValue || div.innerText
+
+  //   if (textValue.toUpperCase().indexOf(upperWord) > -1) {
+  //     // td[i].classList.
+  //   }else{
+  //     td[i].classList.add("hidden")
+
+  //   }
+  // }
 }

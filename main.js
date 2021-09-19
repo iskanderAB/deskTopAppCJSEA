@@ -68,9 +68,12 @@ ipcMain.on("addToDataB", (event, args) => {
       phone: args[3],
     })
     .then(() => {
-      // showMessageBoxSync 5ater lazem yestanna yetna7a l box bech yet3adda lalli ba3dou so ta5ou wa9t 
+      // showMessageBoxSync 5ater lazem yestanna yetna7a l box bech yet3adda lalli ba3dou so ta5ou wa9t
 
-      dialog.showMessageBoxSync({...options , "detail" : "member added succesfully"} )
+      dialog.showMessageBoxSync({
+        ...options,
+        detail: "member added succesfully",
+      });
       event.sender.send("reload");
     });
 });
@@ -84,7 +87,7 @@ const options = {
   detail: "member has been delete",
 };
 
-// delete members from database
+// delete members from database with id
 
 ipcMain.on("deleteMember", (event, id) => {
   knex("members")
@@ -94,4 +97,30 @@ ipcMain.on("deleteMember", (event, id) => {
       dialog.showMessageBoxSync(options);
       event.sender.send("reload");
     });
+});
+
+//jebt member info mel DB bech 3abbit inputs modal
+
+ipcMain.on("getModelInput", (event, id) => {
+  let result = knex.select().from("members").where("id", id);
+  result.then((row) => {
+    event.sender.send("inputModelLoaded", row);
+  });
+});
+
+//  update members from modal
+
+ipcMain.on("updateMember", (event, args) => {
+  knex("members").where("id", args[0]).update({
+    name:args[1],  
+    lastname:args[2],
+    email:args[3],
+    phone:args[4]
+  }).then(
+    dialog.showMessageBoxSync({
+      ...options,
+      detail: "member update succesfully",
+    }),
+    event.sender.send("reload")
+  )
 });
