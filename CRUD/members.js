@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// get input value and send it do IPCmain
+
 
 ajoutBtn = document.querySelector("#memberAjoutBtn");
 ajoutBtn.addEventListener("click", () => {
@@ -142,11 +142,11 @@ function showModel(id) {
   const updateMemberBtn = document.querySelector("#updateMember");
 
   updateMemberBtn.addEventListener("click", () => {
-    const modalInputName = document.querySelector("#modalInputName").value;
-    const modalInputLastName = document.querySelector(
+    const modalInputNameTrainer = document.querySelector("#modalInputName").value;
+    const modalInputLastNameTrainer = document.querySelector(
       "#modalInputLastName"
     ).value;
-    const modalInputEmail = document.querySelector("#modalInputEmail").value;
+    const modalInputEmailTrainer = document.querySelector("#modalInputEmail").value;
     const modalInputPhone = document.querySelector("#modalInputPhone").value;
 
     ipcRenderer.send("updateMember", [

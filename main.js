@@ -28,6 +28,90 @@ const knex = require("knex")({
   },
 });
 
+
+
+// Load trainers list from database
+
+ipcMain.on("LoadTrainersList" , (event)=>{
+  let result= knex.select().from("trainers")
+  result.then((trainer)=>{
+    event.sender.send("TrainersListLoaded" , trainer)
+  })
+})
+
+
+// add trainer list to database
+
+
+ipcMain.on("addTrainerToDB", (event, args) => {
+   knex("trainers")
+    .insert({
+      name: args[0],
+      lastname: args[1],
+      email: args[2],
+      phone: args[3],
+    })
+    .then(() => {
+      // showMessageBoxSync  
+      dialog.showMessageBoxSync({...options , "detail" : "Trainer added succesfully "} )
+      event.sender.send("reload");
+    });
+});
+
+
+//get Trainer info from DB to fill inputs modal
+
+ipcMain.on("getModelTrainerInput", (event, id) => {
+  let result = knex.select().from("trainers").where("id", id);
+  result.then((row) => {
+    event.sender.send("inputModelTrainerLoaded", row);
+  });
+});
+
+//  update Trainers from modal
+
+ipcMain.on("updateTrainer", (event, args) => {
+  knex("trainers").where("id", args[0]).update({
+    name:args[1],  
+    lastname:args[2],
+    email:args[3],
+    phone:args[4]
+  }).then(
+    dialog.showMessageBoxSync({
+      ...options,
+      detail: "Trainer update succesfully",
+    }),
+    event.sender.send("reload")
+  )
+});
+
+// message box option trainer
+
+const optionsTrainers = {
+  type: "info",
+  message: "Message",
+  button: "OK",
+  detail: "Trainer has been delete",
+};
+
+// delete trainer from database with id
+
+ipcMain.on("deleteTrainer", (event, id) => {
+  knex("trainers")
+    .where("id", id)
+    .del()
+    .then(() => {
+      dialog.showMessageBoxSync(optionsTrainers);
+      event.sender.send("reload");
+    });
+});
+
+
+
+
+
+
+
 // get members list from database
 
 ipcMain.on("LoadMembersList", (event) => {
@@ -37,26 +121,6 @@ ipcMain.on("LoadMembersList", (event) => {
   });
 });
 
-// ajout trainer list to database
-
-ipcMain.on("AjoutTrainerList", (event, args) => {
-  var ajout = knex("trainers")
-    .insert({
-      name: args[0],
-      lastname: args[1],
-      email: args[2],
-      phone: args[3],
-    })
-    .then(function (new_trainer) {
-      event.sender.send("TrainerListAdd");
-    });
-});
-
-// show error
-
-ipcMain.on("showError", (event, msg) => {
-  dialog.showErrorBox("Error", msg);
-});
 
 // insert members into DB
 ipcMain.on("addToDataB", (event, args) => {
@@ -76,6 +140,12 @@ ipcMain.on("addToDataB", (event, args) => {
       });
       event.sender.send("reload");
     });
+});
+
+// show error
+
+ipcMain.on("showError", (event, msg) => {
+  dialog.showErrorBox("Error", msg);
 });
 
 // message box option

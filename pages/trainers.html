@@ -70,83 +70,8 @@
                 <th class="py-3 px-6 text-center">Actions</th>
               </tr>
             </thead>
-            <tbody class="text-md font-normal">
-              <tr class="border-b border-gray-200 bg-white">
-                <td class="py-3 px-6 text-left whitespace-nowrap">
-                  <div class="items-center">
-                    <span class="">1</span>
-                  </div>
-                </td>
-
-                <td class="py-3 px-6 text-left whitespace-nowrap">
-                  <div class="items-center">
-                    <span class="">brahim</span>
-                  </div>
-                </td>
-                <td class="py-3 px-6 text-left">
-                  <div class="items-center">
-                    <span>tuijine</span>
-                  </div>
-                </td>
-                <td class="py-3 px-6 text-center">
-                  <div class="flex items-center justify-center">
-                    brahim@gmail.com
-                  </div>
-                </td>
-                <td class="py-3 px-6 text-center">
-                  <span class="py-1 px-3">25 214 110</span>
-                </td>
-                <td class="py-3 px-6 text-center">
-                  <div class="flex item-center justify-center">
-                    <!-- stilou button -->
-                    <button>
-                      <div
-                        class="
-                          w-4
-                          mr-2
-                          transform
-                          text-purple-500
-                          hover:scale-110
-                        "
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                          />
-                        </svg>
-                      </div>
-                    </button>
-                    <!-- pubala button -->
-                    <button>
-                      <div
-                        class="w-4 mr-2 transform text-red-500 hover:scale-110"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                          />
-                        </svg>
-                      </div>
-                    </button>
-                  </div>
-                </td>
-              </tr>
+            <tbody class="text-md font-normal" id="tableContent">
+              
             </tbody>
           </table>
         </div>
@@ -263,7 +188,144 @@
         </div>
       </div>
     </div>
-
+   
+       <!-- model components -->
+       <div
+       class="
+         hidden
+         modal
+         h-screen
+         w-full
+         fixed
+         left-0
+         top-0
+         flex
+         justify-center
+         items-center
+         bg-black bg-opacity-50
+       "
+     >
+       <!-- modal -->
+       <div class="bg-white rounded shadow-lg w-10/12 md:w-1/2">
+         <!-- modal header -->
+         <div class="border-b px-4 py-2 flex justify-between items-center">
+           <h3 class="font-bold text-xl text-blue-600">Modal Title</h3>
+           <button class="text-black " onclick="closeModel()">&cross;</button>
+         </div>
+         <!-- modal body -->
+         <div class="p-3">
+           <form class="text-black grid grid-cols-2 gap-4">
+             <div class="font-medium text-base">NAME</div>
+             <input
+               id="modalInputNameTrainer"
+               type="search"
+               class="
+                 bg-purple-white
+                 shadow
+                 rounded
+                 border-2
+                 py-2
+                 px-3
+                 border-gray-400
+                 mt-1
+                 w-64
+                 focus:outline-none
+                 focus:ring-2
+                 focus:ring-purple-600
+                 focus:border-transparent
+               "
+               placeholder="First name"
+             />
+             <div class="font-medium text-base mt-3">LAST NAME</div>
+             <input
+               id="modalInputLastNameTrainer"
+               type="search"
+               class="
+                 bg-purple-white
+                 shadow
+                 rounded
+                 border-2
+                 py-2
+                 px-3
+                 border-gray-400
+                 mt-1
+                 w-64
+                 focus:outline-none
+                 focus:ring-2
+                 focus:ring-purple-600
+                 focus:border-transparent
+               "
+               placeholder="Family name"
+             />
+             <div class="font-medium text-base mt-3">E-MAIL</div>
+             <input
+               id="modalInputEmailTrainer"
+               type="search"
+               class="
+                 bg-purple-white
+                 shadow
+                 rounded
+                 border-2
+                 py-2
+                 px-3
+                 border-gray-400
+                 mt-1
+                 w-64
+                 focus:outline-none
+                 focus:ring-2
+                 focus:ring-purple-600
+                 focus:border-transparent
+               "
+               placeholder="exemple@exemple.com"
+             />
+             <div class="font-medium text-base mt-3">PHONE</div>
+             <input
+               id="modalInputPhoneTrainer"
+               type="search"
+               class="
+                 bg-purple-white
+                 shadow
+                 rounded
+                 border-2
+                 py-2
+                 px-3
+                 border-gray-400
+                 mt-1
+                 w-64
+                 focus:outline-none
+                 focus:ring-2
+                 focus:ring-purple-600
+                 focus:border-transparent
+               "
+               placeholder="Exemple: 25 252 525"
+             />
+           </form>
+         </div>
+         <div class="flex justify-end items-center w-100 border-t p-3">
+           <button
+             onclick="closeModel()"
+             class="
+               bg-red-600
+               hover:bg-red-700
+               px-3
+               py-1
+               rounded
+               text-white
+               mr-1
+               close-modal
+             "
+           >
+             Cancel
+           </button>
+           <button
+             id="updateTrainer"
+             class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-white"
+           >
+             Update Trainer
+           </button>
+         </div>
+       </div>
+     </div>
     <script src="../CRUD/trainers.js"></script>
   </body>
 </html>
