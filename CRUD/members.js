@@ -10,35 +10,36 @@ document.addEventListener("DOMContentLoaded", () => {
     const tablecontent = document.querySelector("#tableContent");
 
     result.map((s) => {
-      tablecontent.innerHTML += `<tr class="border-b border-gray-200 bg-white">
+      tablecontent.innerHTML += `<tr id="myTr" class="border-b border-gray-200 bg-white">
                     <td class="py-3 px-6 text-left whitespace-nowrap">
                       <div class="items-center">
-                        <span class="">${s.id}</span>
+                        ${s.id}
                       </div>
                     </td>
 
                     <td class="py-3 px-6 text-left whitespace-nowrap">
                       <div class="items-center">
-                        <span class="">${s.name}</span>
+                        ${s.name}
                       </div>
                     </td>
                     <td class="py-3 px-6 text-left">
                       <div class="items-center">
-                        <span>${s.lastname}</span>
+                        ${s.lastname}
                       </div>
                     </td>
                     <td class="py-3 px-6 text-center">
                       <div class="flex items-center justify-center">
-                      ${s.email}
+                            ${s.email}
                       </div>
                     </td>
                     <td class="py-3 px-6 text-center">
-                      <span class="py-1 px-3">${s.phone}</span>
+                            ${s.phone}
                     </td>
                     <td class="py-3 px-6 text-center">
                       <div class="flex item-center justify-center">
 
-                        <button>
+                        <button onclick="showModel(${s.id})">
+                          
                           <div
                             class="
                               w-4
@@ -63,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             </svg>
                           </div>
                         </button>
-                        <button>
+                        <button id=${s.id} onclick="deleteMember(${s.id})">
                           <div
                             class="w-4 mr-2 transform text-red-500 hover:scale-110"
                           >
@@ -89,23 +90,95 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+
+
 ajoutBtn = document.querySelector("#memberAjoutBtn");
-
 ajoutBtn.addEventListener("click", () => {
-  Name = document.querySelector("#membersName").value;
-  lastName = document.querySelector("#membersLastName").value;
-  email = document.querySelector("#membersEmail").value;
-  membersPhone = document.querySelector("#membersPhone").value;
-
+  const Name = document.querySelector("#membersName").value;
+  const lastName = document.querySelector("#membersLastName").value;
+  const email = document.querySelector("#membersEmail").value;
+  const membersPhone = document.querySelector("#membersPhone").value;
 
   if (Name.toString() == "") {
-    ipcRenderer.send("showError" , "Name can not be null");
+    ipcRenderer.send("showError", "Name can not be null");
   } else if (lastName.toString() == "") {
-    ipcRenderer.send("showError" , "Last name can not be null");
+    ipcRenderer.send("showError", "Last name can not be null");
+  } else if (membersPhone.toString().length != 0) {
+    if (membersPhone.toString().length != 8 || isNaN(membersPhone)) {
+      ipcRenderer.send("showError", "Phone can only be a number and lenght 8");
+    } else {
+      ipcRenderer.send("addToDataB", [Name, lastName, email, membersPhone]);
+    }
   } else {
-    // add to databasee
+    ipcRenderer.send("addToDataB", [Name, lastName, email, membersPhone]);
   }
-
-  
-
 });
+
+// reload page
+
+ipcRenderer.on("reload", () => {
+  location.reload();
+});
+
+// delete members
+function deleteMember(p) {
+  ipcRenderer.send("deleteMember", p);
+}
+
+// show model from stilou button
+
+function showModel(id) {
+  const modal = document.querySelector(".modal");
+  modal.classList.remove("hidden");
+  ipcRenderer.send("getModelInput", id);
+  ipcRenderer.on("inputModelLoaded", (event, result) => {
+    console.log(result);
+    document.querySelector("#modalInputName").value = result[0].name;
+    document.querySelector("#modalInputLastName").value = result[0].lastname;
+    document.querySelector("#modalInputEmail").value = result[0].email;
+    document.querySelector("#modalInputPhone").value = result[0].phone;
+  });
+
+  const updateMemberBtn = document.querySelector("#updateMember");
+
+  updateMemberBtn.addEventListener("click", () => {
+    const modalInputNameTrainer = document.querySelector("#modalInputName").value;
+    const modalInputLastNameTrainer = document.querySelector(
+      "#modalInputLastName"
+    ).value;
+    const modalInputEmailTrainer = document.querySelector("#modalInputEmail").value;
+    const modalInputPhone = document.querySelector("#modalInputPhone").value;
+
+    ipcRenderer.send("updateMember", [
+      id,
+      modalInputName,
+      modalInputLastName,
+      modalInputEmail,
+      modalInputPhone,
+    ]);
+  });
+}
+
+// close modal
+
+function closeModel() {
+  const modal = document.querySelector(".modal");
+  modal.classList.add("hidden");
+}
+
+// searchMember
+function searchMember() {
+  let wordToSearch = document.querySelector("#searchMember").value;
+  let upperWord = wordToSearch.toUpperCase();
+  let tbody = document.getElementById("tableContent");
+  let newtr = tbody.getElementsByTagName("tr");
+
+  for (let i = 0; i < newtr.length; i++) {
+    let toSearch = newtr[i].getElementsByTagName("div")[1].textContent;
+    if (toSearch.toUpperCase().includes(upperWord) == false) {
+      newtr[i].classList.add("hidden");
+    } else {
+      newtr[i].classList.remove("hidden");
+    }
+  }
+}
